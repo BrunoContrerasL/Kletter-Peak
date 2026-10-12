@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kletter Peak | Hiking, Trekking y Equipo de Montaña</title>
+<meta name="description" content="Rutas de senderismo, expediciones de trekking guiadas y tienda de equipo de montaña. Reserva tu aventura con seguro y rescate incluidos.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { display: ['"Barlow Condensed"', 'sans-serif'], sans: ['Inter', 'sans-serif'] },
+      colors: {
+        forest: { 50:'#f0f7f1', 100:'#dcebde', 200:'#b9d7bd', 500:'#3f7d4e', 600:'#2f6a3f', 700:'#245433', 800:'#1b4026', 900:'#12301b' },
+        earth: { 50:'#faf6f0', 100:'#f1e8d9', 200:'#e2d0b3', 400:'#b98a56', 500:'#9c6d3c', 700:'#6b4a28' },
+        rock: { 100:'#eceeef', 300:'#b5bbbe', 500:'#6b7378', 700:'#3b4246', 900:'#1d2124' },
+        sun: { 400:'#ffb020', 500:'#f59500', 600:'#e07b00' }
+      }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .slide { opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility .8s; }
+  .slide.active { opacity: 1; visibility: visible; }
+  .marquee { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .faq-panel { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+  .topo { background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,.06) 0, transparent 40%), repeating-radial-gradient(circle at 80% 120%, rgba(255,255,255,.05) 0 2px, transparent 2px 22px); }
+  @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55);} 70% { box-shadow: 0 0 0 16px rgba(37,211,102,0);} 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0);} }
+  .wa-pulse { animation: pulse-ring 2.2s infinite; }
+  :focus-visible { outline: 3px solid #ffb020; outline-offset: 2px; }
+</style>
+</head>
+<body class="bg-earth-50 text-rock-900 antialiased">
+
+<!-- Barra superior -->
+<div class="bg-forest-900 text-forest-100 text-xs sm:text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+    <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-sun-400"></i> Todas las expediciones incluyen seguro de accidentes y rescate</p>
+    <p class="hidden sm:flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-sun-400"></i> Envío gratis en compras de equipo mayores a $2,500 MXN</p>
+  </div>
+</div>
+
+<!-- ENCABEZADO -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-rock-100">
+  <div class="max-w-7xl mx-auto px-4 h-16 lg:h-20 flex items-center justify-between">
+    <a href="#inicio" class="flex items-center gap-2" aria-label="Kletter Peak - Inicio">
+      <span class="w-10 h-10 rounded-xl bg-forest-700 grid place-items-center">
+        <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none"><path d="M3 38 17 14l8 13 5-8 15 19H3Z" fill="#fff"/><path d="M17 14l4 6.5-3 2.2-3.2-1.7L17 14Z" fill="#ffb020"/><circle cx="36" cy="10" r="4" fill="#ffb020"/></svg>
+      </span>
+      <span class="leading-none">
+        <span class="font-display text-2xl font-extrabold tracking-wide text-forest-800 uppercase">Kletter Peak</span>
+        <span class="block text-[10px] tracking-[.25em] text-earth-500 uppercase font-semibold">Hiking · Trekking · Equipo</span>
+      </span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-rock-700" aria-label="Principal">
+      <a class="hover:text-forest-600" href="#rutas">Rutas y Expediciones</a>
+      <a class="hover:text-forest-600" href="#catalogo">Productos</a>
+      <a class="hover:text-forest-600" href="#seguros">Seguros</a>
+      <a class="hover:text-forest-600" href="#faq">FAQ</a>
+      <a class="hover:text-forest-600" href="#contacto">Contacto</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button data-reserve class="hidden sm:inline-flex items-center gap-2 bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold px-5 py-2.5 rounded-full shadow-sm transition">
+        <i data-lucide="calendar-check" class="w-4 h-4"></i> Reservar ahora
+      </button>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-rock-100" aria-label="Abrir menú" aria-expanded="false"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-rock-100 bg-white">
+    <div class="px-4 py-3 flex flex-col text-rock-700 font-semibold">
+      <a class="py-3 border-b border-rock-100" href="#rutas">Rutas y Expediciones</a>
+      <a class="py-3 border-b border-rock-100" href="#catalogo">Productos</a>
+      <a class="py-3 border-b border-rock-100" href="#seguros">Seguros</a>
+      <a class="py-3 border-b border-rock-100" href="#faq">FAQ</a>
+      <a class="py-3" href="#contacto">Contacto</a>
+      <button data-reserve class="mt-2 bg-sun-500 text-rock-900 font-bold px-5 py-3 rounded-full">Reservar ahora</button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- HÉROE / SLIDER -->
+<section class="relative bg-forest-900 overflow-hidden" aria-roledescription="carrusel" aria-label="Promociones y avisos">
+  <div id="heroSlides" class="relative h-[560px] sm:h-[620px] lg:h-[680px]"></div>
+  <button id="heroPrev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur text-white grid place-items-center" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+  <button id="heroNext" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur text-white grid place-items-center" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+  <div id="heroDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"></div>
+  <!-- Barra de datos -->
+  <div class="absolute bottom-0 inset-x-0 z-10 hidden md:block">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-4 bg-white/95 backdrop-blur rounded-t-2xl text-center divide-x divide-rock-100">
+        <div class="py-4"><p class="font-display text-3xl font-extrabold text-forest-700">+12,000</p><p class="text-xs text-rock-500 uppercase tracking-wider">Senderistas guiados</p></div>
+        <div class="py-4"><p class="font-display text-3xl font-extrabold text-forest-700">45</p><p class="text-xs text-rock-500 uppercase tracking-wider">Rutas activas</p></div>
+        <div class="py-4"><p class="font-display text-3xl font-extrabold text-forest-700">100%</p><p class="text-xs text-rock-500 uppercase tracking-wider">Guías certificados</p></div>
+        <div class="py-4"><p class="font-display text-3xl font-extrabold text-forest-700">4.9★</p><p class="text-xs text-rock-500 uppercase tracking-wider">Calificación promedio</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUTAS Y EXPEDICIONES -->
+<section id="rutas" class="py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-sm">Rutas y expediciones</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-forest-900 mt-1">Elige tu próxima cumbre</h2>
+        <p class="text-rock-500 mt-3 max-w-2xl">Salidas semanales con guías certificados, grupos reducidos y equipo de seguridad. Desde caminatas de un día hasta expediciones de altitud.</p>
+      </div>
+      <div id="routeFilters" class="flex flex-wrap gap-2"></div>
+    </div>
+    <div id="routesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- AVISO DE EQUIPO -->
+<section class="bg-forest-800 topo text-white">
+  <div class="max-w-7xl mx-auto px-4 py-12 grid lg:grid-cols-3 gap-8 items-center">
+    <div class="lg:col-span-1">
+      <p class="text-sun-400 font-bold uppercase tracking-[.2em] text-sm">Antes de salir</p>
+      <h2 class="font-display text-4xl font-extrabold uppercase mt-1">Equipo esencial</h2>
+      <p class="text-forest-100 mt-2">Los 6 imprescindibles que revisamos con cada grupo antes de iniciar la ruta.</p>
+    </div>
+    <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="footprints" class="text-sun-400"></i><span class="text-sm font-semibold">Botas de montaña</span></div>
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="cloud-rain" class="text-sun-400"></i><span class="text-sm font-semibold">Capa impermeable</span></div>
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="flashlight" class="text-sun-400"></i><span class="text-sm font-semibold">Linterna frontal</span></div>
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="droplets" class="text-sun-400"></i><span class="text-sm font-semibold">2 litros de agua</span></div>
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="sun" class="text-sun-400"></i><span class="text-sm font-semibold">Protección solar</span></div>
+      <div class="bg-white/10 rounded-xl p-4 flex items-center gap-3"><i data-lucide="cross" class="text-sun-400"></i><span class="text-sm font-semibold">Botiquín personal</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo" class="py-16 lg:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-sm">Tienda y renta de equipo</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-forest-900 mt-1">Todo para tu aventura</h2>
+      <p class="text-rock-500 mt-3">Compra o renta equipo probado en montaña. Asesoría gratuita para elegir la talla y el modelo correctos.</p>
+    </div>
+    <div id="catTabs" class="flex gap-3 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 lg:justify-center"></div>
+    <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6"></div>
+  </div>
+</section>
+
+<!-- SEGUROS -->
+<section id="seguros" class="py-16 lg:py-24 bg-earth-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-sm">Seguros y seguridad</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-forest-900 mt-1">Tu seguridad va primero</h2>
+        <p class="text-rock-700 mt-4">En la montaña, la preparación marca la diferencia. Cada reserva incluye cobertura base y puedes ampliar tu protección según la dificultad de la ruta.</p>
+        <ul class="mt-6 space-y-3">
+          <li class="flex gap-3"><i data-lucide="check-circle-2" class="text-forest-600 shrink-0 mt-0.5"></i><span><b>Guías certificados</b> en primeros auxilios en áreas silvestres (WFA/WFR).</span></li>
+          <li class="flex gap-3"><i data-lucide="check-circle-2" class="text-forest-600 shrink-0 mt-0.5"></i><span><b>Comunicación satelital</b> y protocolo de evacuación en cada salida.</span></li>
+          <li class="flex gap-3"><i data-lucide="check-circle-2" class="text-forest-600 shrink-0 mt-0.5"></i><span><b>Grupos reducidos</b>: máximo 1 guía por cada 8 participantes.</span></li>
+        </ul>
+        <button data-reserve class="mt-8 inline-flex items-center gap-2 bg-forest-700 hover:bg-forest-800 text-white font-bold px-6 py-3 rounded-full transition">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Solicitar cotización de seguro
+        </button>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-earth-200">
+          <div class="w-12 h-12 rounded-xl bg-forest-100 grid place-items-center mb-4"><i data-lucide="heart-pulse" class="text-forest-700"></i></div>
+          <h3 class="font-display text-2xl font-bold uppercase text-forest-900">Seguro de vida</h3>
+          <p class="text-sm text-rock-500 mt-2">Cobertura por fallecimiento accidental e invalidez total o permanente durante la expedición. Suma asegurada desde $500,000 MXN, ampliable.</p>
+        </article>
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-earth-200">
+          <div class="w-12 h-12 rounded-xl bg-forest-100 grid place-items-center mb-4"><i data-lucide="stethoscope" class="text-forest-700"></i></div>
+          <h3 class="font-display text-2xl font-bold uppercase text-forest-900">Cobertura médica</h3>
+          <p class="text-sm text-rock-500 mt-2">Gastos médicos por accidente: atención de urgencia, hospitalización, medicamentos y traslado a centro médico, con red de hospitales aliados.</p>
+        </article>
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-earth-200">
+          <div class="w-12 h-12 rounded-xl bg-forest-100 grid place-items-center mb-4"><i data-lucide="life-buoy" class="text-forest-700"></i></div>
+          <h3 class="font-display text-2xl font-bold uppercase text-forest-900">Rescate en ruta</h3>
+          <p class="text-sm text-rock-500 mt-2">Búsqueda, rescate y evacuación terrestre o aérea en zonas de montaña, coordinada con protección civil y cuerpos de rescate locales.</p>
+        </article>
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-earth-200">
+          <div class="w-12 h-12 rounded-xl bg-sun-400/25 grid place-items-center mb-4"><i data-lucide="clipboard-check" class="text-sun-600"></i></div>
+          <h3 class="font-display text-2xl font-bold uppercase text-forest-900">Requisitos obligatorios</h3>
+          <ul class="text-sm text-rock-500 mt-2 space-y-1 list-disc pl-4">
+            <li>Carta de responsiva firmada</li>
+            <li>Botas de montaña y capa impermeable</li>
+            <li>Declaración de salud y contacto de emergencia</li>
+            <li>Asistir a la sesión informativa previa</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+    <p class="text-xs text-rock-500 mt-8">* Las coberturas, sumas aseguradas y exclusiones dependen de la póliza contratada con la aseguradora aliada. Consulta las condiciones generales antes de reservar.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="font-display text-4xl font-extrabold uppercase text-forest-900 text-center">Lo que dicen nuestros senderistas</h2>
+    <div class="grid md:grid-cols-3 gap-6 mt-10">
+      <figure class="bg-earth-50 rounded-2xl p-6 border border-earth-200">
+        <div class="flex text-sun-500 mb-3">★★★★★</div>
+        <blockquote class="text-rock-700">"Mi primera ascensión al Iztaccíhuatl. El guía cuidó cada detalle y me sentí seguro todo el camino. La renta de equipo fue impecable."</blockquote>
+        <figcaption class="mt-4 text-sm font-bold text-forest-800">Mariana R. · Ciudad de México</figcaption>
+      </figure>
+      <figure class="bg-earth-50 rounded-2xl p-6 border border-earth-200">
+        <div class="flex text-sun-500 mb-3">★★★★★</div>
+        <blockquote class="text-rock-700">"Fuimos en familia con dos niños al Nevado de Toluca. Rutas bien elegidas, ritmo adecuado y el equipo infantil nos salvó el día."</blockquote>
+        <figcaption class="mt-4 text-sm font-bold text-forest-800">Familia Ortega · Toluca</figcaption>
+      </figure>
+      <figure class="bg-earth-50 rounded-2xl p-6 border border-earth-200">
+        <div class="flex text-sun-500 mb-3">★★★★★</div>
+        <blockquote class="text-rock-700">"Pagué a meses con Kueski y reservé en minutos. Excelente comunicación antes y después de la expedición al Pico de Orizaba."</blockquote>
+        <figcaption class="mt-4 text-sm font-bold text-forest-800">Luis A. · Puebla</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODOS DE PAGO -->
+<section id="pagos" class="py-16 bg-forest-900 topo text-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p class="text-sun-400 font-bold uppercase tracking-[.2em] text-sm">Pagos seguros</p>
+    <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase mt-1">Paga como prefieras</h2>
+    <p class="text-forest-100 mt-3 max-w-2xl mx-auto">Pagos cifrados con certificación PCI-DSS. Aparta tu lugar con un anticipo o paga a meses sin complicaciones.</p>
+  </div>
+  <div class="mt-10 relative">
+    <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-forest-900 to-transparent z-10"></div>
+    <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-forest-900 to-transparent z-10"></div>
+    <div class="marquee" id="payMarquee"></div>
+  </div>
+  <p class="text-center text-xs text-forest-200 mt-6 px-4"></p>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-16 lg:py-24">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-sm">Preguntas frecuentes</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-forest-900 mt-1">Resolvemos tus dudas</h2>
+    </div>
+    <div id="faqList" class="space-y-3"></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="py-16 lg:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12">
+    <div>
+      <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-sm">Contacto</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-forest-900 mt-1">Hablemos de tu ruta</h2>
+      <p class="text-rock-500 mt-3">Cuéntanos tu nivel, fechas y objetivos. Te recomendamos la expedición ideal en menos de 24 horas.</p>
+      <ul class="mt-8 space-y-4 text-rock-700">
+        <li class="flex gap-3 items-start"><i data-lucide="map-pin" class="text-forest-600 mt-0.5"></i><span>Av. de la Montaña 120, Col. Roma Norte, CDMX (cita previa)</span></li>
+        <li class="flex gap-3 items-start"><i data-lucide="phone" class="text-forest-600 mt-0.5"></i><a href="tel:+525519191985" class="hover:underline">+52 55 1919 1985</a></li>
+        <li class="flex gap-3 items-start"><i data-lucide="mail" class="text-forest-600 mt-0.5"></i><a href="mailto:hola@cumbretrek.mx" class="hover:underline">hola@cumbretrek.mx</a></li>
+        <li class="flex gap-3 items-start"><i data-lucide="clock" class="text-forest-600 mt-0.5"></i><span>Lunes a sábado, 9:00 a 19:00 h (hora del centro de México)</span></li>
+      </ul>
+    </div>
+    <form id="contactForm" class="bg-earth-50 border border-earth-200 rounded-2xl p-6 sm:p-8 space-y-4" novalidate>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block text-sm font-semibold text-rock-700">Nombre
+          <input name="nombre" required class="mt-1 w-full rounded-xl border border-rock-300 bg-white px-4 py-3 font-normal" placeholder="Tu nombre completo">
+        </label>
+        <label class="block text-sm font-semibold text-rock-700">Teléfono
+          <input name="telefono" type="tel" required class="mt-1 w-full rounded-xl border border-rock-300 bg-white px-4 py-3 font-normal" placeholder="55 1234 5678">
+        </label>
+      </div>
+      <label class="block text-sm font-semibold text-rock-700">Correo electrónico
+        <input name="email" type="email" required class="mt-1 w-full rounded-xl border border-rock-300 bg-white px-4 py-3 font-normal" placeholder="tu@correo.com">
+      </label>
+      <label class="block text-sm font-semibold text-rock-700">Me interesa
+        <select name="interes" class="mt-1 w-full rounded-xl border border-rock-300 bg-white px-4 py-3 font-normal">
+          <option>Una expedición guiada</option><option>Comprar equipo</option><option>Rentar equipo</option><option>Seguro de viaje</option><option>Grupos y empresas</option>
+        </select>
+      </label>
+      <label class="block text-sm font-semibold text-rock-700">Mensaje
+        <textarea name="mensaje" rows="4" class="mt-1 w-full rounded-xl border border-rock-300 bg-white px-4 py-3 font-normal" placeholder="Cuéntanos tu experiencia y fechas tentativas"></textarea>
+      </label>
+      <button class="w-full bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2"><i data-lucide="send" class="w-4 h-4"></i> Enviar por WhatsApp</button>
+      <p id="formMsg" class="text-sm text-forest-700 font-semibold hidden"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-rock-900 text-rock-300">
+  <div class="max-w-7xl mx-auto px-4 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <p class="font-display text-3xl font-extrabold uppercase text-white">Kletter Peak</p>
+      <p class="text-sm mt-3">Expediciones de senderismo y trekking, y equipo de montaña probado en campo. Caminamos contigo, de la primera ruta a la gran cumbre.</p>
+      <div class="flex gap-3 mt-5">
+        <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition">
+          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-white font-bold uppercase tracking-wider text-sm mb-4">Explora</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="hover:text-sun-400" href="#rutas">Rutas y expediciones</a></li>
+        <li><a class="hover:text-sun-400" href="#catalogo">Tienda y renta de equipo</a></li>
+        <li><a class="hover:text-sun-400" href="#seguros">Seguros y seguridad</a></li>
+        <li><a class="hover:text-sun-400" href="#pagos">Métodos de pago</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-white font-bold uppercase tracking-wider text-sm mb-4">Atención al cliente</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="hover:text-sun-400" href="#faq">Preguntas frecuentes (FAQ)</a></li>
+        <li><button data-legal="factura" class="hover:text-sun-400 text-left">Portal de facturación electrónica</button></li>
+        <li><a class="hover:text-sun-400" href="#contacto">Contacto</a></li>
+        <li><a class="hover:text-sun-400" href="https://wa.me/525519191985" target="_blank" rel="noopener">WhatsApp Business</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-white font-bold uppercase tracking-wider text-sm mb-4">Legal</h3>
+      <ul class="space-y-2 text-sm">
+        <li><button data-legal="privacidad" class="hover:text-sun-400 text-left">Aviso de privacidad</button></li>
+        <li><button data-legal="terminos" class="hover:text-sun-400 text-left">Términos y condiciones</button></li>
+      </ul>
+      <p class="text-xs mt-6">Pagos procesados de forma segura.<br>Precios en pesos mexicanos (MXN) con IVA incluido.</p>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-5 text-xs flex flex-col sm:flex-row justify-between gap-2">
+      <p>© <span id="year"></span> Kletter Peak. Todos los derechos reservados.</p>
+      <p>Hecho en México para quienes viven la montaña.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/525519191985?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20expediciones" target="_blank" rel="noopener"
+   class="fixed bottom-5 right-5 z-50 flex items-center gap-2 bg-[#25D366] text-white font-bold pl-4 pr-5 py-3 rounded-full shadow-xl wa-pulse hover:brightness-95" aria-label="Contactar por WhatsApp Business">
+  <svg viewBox="0 0 32 32" class="w-7 h-7" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.1 19.7L3 29l6.5-1.7A13 13 0 1 0 16 3Zm0 23.7a10.7 10.7 0 0 1-5.5-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.700Zm5.900-8c-.3-.2-1.900-.9-2.200-1s-.5-.2-.7.200-.8 1-1 1.200-.4.200-.7.100a8.700 8.700 0 0 1-4.300-3.800c-.3-.6.300-.5.900-1.700.1-.2 0-.4 0-.5l-1-2.300c-.3-.6-.5-.5-.7-.5h-.6a1.200 1.200 0 0 0-.9.400 3.700 3.700 0 0 0-1.100 2.700c0 1.600 1.200 3.200 1.300 3.400s2.300 3.500 5.600 4.900c2 .9 2.800.9 3.800.8a3.200 3.200 0 0 0 2.100-1.500 2.600 2.600 0 0 0 .2-1.500c-.1-.1-.3-.2-.6-.4Z"/></svg>
+  <span class="hidden sm:inline">WB · Escríbenos</span>
+</a>
+
+<!-- MODAL GENÉRICO -->
+<div id="modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true">
+  <div id="modalBackdrop" class="absolute inset-0 bg-rock-900/70 backdrop-blur-sm"></div>
+  <div class="absolute inset-0 overflow-y-auto">
+    <div class="min-h-full flex items-center justify-center p-4">
+      <div id="modalBox" class="relative bg-white rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden">
+        <button id="modalClose" class="absolute top-3 right-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-rock-100 grid place-items-center shadow" aria-label="Cerrar"><i data-lucide="x"></i></button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= DATOS ================= */
+const WA = '525519191985';
+const money = n => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
+
+const slides = [
+  { tag: 'Promoción de temporada', icon: 'tag', title: 'Temporada de nevados: 15% de descuento', text: 'Reserva tu ascenso al Iztaccíhuatl o al Pico de Orizaba antes del 30 de noviembre y obtén renta de crampones y piolet sin costo.', cta: 'Reservar expedición', action: 'reserve', img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=70', grad: 'from-slate-800 via-forest-900 to-rock-900' },
+  { tag: 'Aviso importante', icon: 'cloud-lightning', title: 'Clima de montaña: revisa antes de salir', text: 'De noviembre a febrero las temperaturas en cumbre bajan de -10 °C. Equipo térmico, capa impermeable y linterna frontal son obligatorios en todas las rutas.', cta: 'Ver equipo obligatorio', href: '#catalogo', img: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=70', grad: 'from-indigo-900 via-forest-900 to-rock-900' },
+  { tag: 'Servicio destacado', icon: 'users', title: 'Senderismo familiar con equipo infantil', text: 'Rutas cortas y seguras para niños desde 6 años, con mochilas, botas y bastones de su talla. Una aventura para toda la familia.', cta: 'Ver rutas familiares', href: '#rutas', filter: 'Familiar', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1800&q=70', grad: 'from-forest-700 via-forest-900 to-rock-900' },
+  { tag: 'Producto destacado', icon: 'navigation', title: 'GPS de montaña con mapas offline', text: 'Navega sin señal con batería de hasta 30 días, SOS satelital y altímetro barométrico. Disponible en compra o renta por fin de semana.', cta: 'Comprar o rentar', href: '#catalogo', cat: 'Electrónico', img: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1800&q=70', grad: 'from-earth-700 via-forest-900 to-rock-900' }
+];
+
+const routes = [
+  { id: 'r1', name: 'Nevado de Toluca y Lagunas', level: 'Fácil', cat: 'Un día', alt: '4,680 m', dur: '1 día · 7 h', km: '9 km', price: 1290, img: 'https://www.mexicodesconocido.com.mx/wp-content/uploads/2016/12/nevado-de-toluca-parque-1600-1024x640.jpg', short: 'Caminata al cráter con vistas a las lagunas del Sol y la Luna. Ideal para iniciar en altura.', long: 'Salimos de CDMX al amanecer rumbo al Parque Nacional Nevado de Toluca. Recorrerás el borde del cráter, bajarás a las lagunas y aprenderás técnicas básicas de respiración y ritmo en altura. Ruta perfecta para quien busca su primera experiencia por encima de los 4,000 m.', inc: ['Transporte redondo desde CDMX', 'Guía certificado', 'Seguro de accidentes y rescate', 'Refrigerio y agua', 'Fotografías del grupo'] },
+  { id: 'r2', name: 'Familiar en La Marquesa', level: 'Fácil', cat: 'Familiar', alt: '3,000 m', dur: '1 día · 4 h', km: '5 km', price: 790, img: 'https://www.mexicodesconocido.com.mx/wp-content/uploads/2010/06/la-marquesa-mayraMoreno-900x675.webp', short: 'Sendero suave entre bosque de oyamel, con dinámicas para niños y picnic.', long: 'Una jornada diseñada para familias: pausas frecuentes, juegos de orientación y observación de fauna. Niños desde 6 años acompañados por un adulto. Contamos con equipo infantil en renta para que nadie se quede atrás.', inc: ['Guía y apoyo para niños', 'Picnic de bienvenida', 'Seguro de accidentes', 'Juegos de orientación', 'Renta de equipo infantil opcional'] },
+  { id: 'r3', name: 'Iztaccíhuatl por Las Rodillas', level: 'Difícil', cat: 'Expedición', alt: '5,230 m', dur: '2 días · 1 noche', km: '22 km', price: 4850, img: 'https://www.inah.gob.mx/images/fotodeldia/20230725_fotodia_Iztaccihuatl.jpg', short: 'La Mujer Dormida: ascenso técnico-moderado con refugio y cumbre al amanecer.', long: 'Ascenso al tercer pico más alto de México con aclimatación previa, noche en refugio y cumbre al amanecer. Requiere condición física sólida y entrenamiento previo. Incluye revisión de equipo y sesión informativa obligatoria una semana antes.', inc: ['Guías de alta montaña', 'Transporte y permisos', 'Refugio, cena y desayuno', 'Renta de crampones y piolet', 'Seguro con rescate de altitud'] },
+  { id: 'r4', name: 'Pico de Orizaba (Citlaltépetl)', level: 'Experto', cat: 'Expedición', alt: '5,636 m', dur: '3 días · 2 noches', km: '18 km', price: 7900, img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/77/07/cd/ex-hacieda-de-buena-vista.jpg?w=700&h=400&s=1', short: 'El techo de México: glaciar, crampones y cuerda con guías de alta montaña.', long: 'Expedición técnica al volcán más alto del país. Incluye un día de aclimatación, entrenamiento en glaciar y ataque a cumbre de madrugada. Se requiere experiencia previa en alta montaña y examen de aptitud física.', inc: ['Guías UIAGM/IFMGA', 'Transporte 4x4 y permisos', 'Campamento y alimentos', 'Equipo técnico completo', 'Seguro de alta montaña y evacuación'] },
+  { id: 'r5', name: 'Cañón de Los Dinamos', level: 'Moderada', cat: 'Un día', alt: '3,800 m', dur: '1 día · 6 h', km: '14 km', price: 1090, img: 'https://offloadmedia.feverup.com/cdmxsecreta.com/wp-content/uploads/2025/01/30161257/que-hacer-en-los-dinamos-1024x683.jpg', short: 'Cascadas, bosque y río en la Magdalena Contreras. Perfecto para entrenar fondo.', long: 'Ruta circular con ascenso sostenido hasta el mirador del Cerro San Miguel. Ideal como entrenamiento previo a expediciones mayores. Terreno mixto de bosque, roca y arroyos.', inc: ['Guía certificado', 'Seguro de accidentes', 'Hidratación en ruta', 'Bastones en préstamo', 'Fotografías del grupo'] },
+  { id: 'r6', name: 'Sierra Norte de Oaxaca', level: 'Moderada', cat: 'Expedición', alt: '3,200 m', dur: '4 días · 3 noches', km: '48 km', price: 6400, img: 'https://f.civitatis.com/mexico/oaxaca/galeria/senderismo-sierra-norte.jpg', short: 'Cruce de pueblos mancomunados entre bosques de niebla y cabañas comunitarias.', long: 'Caminata de varios días por la Sierra Norte conectando pueblos zapotecos. Dormirás en cabañas comunitarias, comerás cocina local y apoyarás directamente a las comunidades anfitrionas.', inc: ['Guía local y guía de la empresa', 'Hospedaje en cabañas', 'Todas las comidas', 'Traslado desde Oaxaca', 'Seguro de accidentes y rescate'] }
+];
+
+const faqs = [
+  ['¿Necesito experiencia previa para participar?', 'No para las rutas marcadas como Fácil o Familiar. Para expediciones Difíciles o Expertas pedimos experiencia comprobable o completar primero una ruta de preparación. Cada ficha indica el nivel recomendado.'],
+  ['¿Qué incluye el precio de una expedición?', 'Incluye guía certificado, transporte indicado, seguro de accidentes con rescate, permisos y los servicios descritos en cada ruta (alimentos, refugio, equipo técnico). El equipo personal no incluido puede rentarse con nosotros.'],
+  ['¿Puedo cancelar o reprogramar mi reserva?', 'Sí. Puedes reprogramar sin costo hasta 7 días antes de la salida. Cancelaciones con más de 15 días de anticipación reciben reembolso del 90%. Si cancelamos por clima o seguridad, reprogramamos o reembolsamos el 100%.'],
+  ['¿Cómo funciona la renta de equipo?', 'Elige el equipo, la fecha de recogida y de devolución. Solicitamos una identificación y un depósito reembolsable. Todo el equipo se desinfecta y revisa tras cada uso.'],
+  ['¿Qué pasa si hay mal clima?', 'La seguridad manda. El guía puede modificar o suspender la ruta si hay tormenta eléctrica, viento fuerte o riesgo de avalancha. Te avisamos con anticipación y ofrecemos nueva fecha sin costo.'],
+  ['¿Aceptan pagos a meses y transferencias?', 'Sí: tarjetas Visa y Mastercard, PayPal, Mercado Pago, Kueski Pay, transferencia SPEI y pago en efectivo en OXXO. Con Open Pay puedes diferir tu compra a meses según tu banco.'],
+  ['¿Cómo solicito mi factura?', 'Entra al portal de facturación en el pie de página con tu folio de compra y tus datos fiscales. Tienes hasta el último día del mes en que realizaste tu compra.']
+];
+
+const payments = [
+  { n: 'OpenPay', s: 'by BBVA', c: '#0A3EFF', bg: '#EAF0FF', img: 'https://www.google.com/s2/favicons?domain=openpay.mx&sz=128' },
+  { n: 'PayPal', s: 'Checkout', c: '#003087', bg: '#EAF2FB', img: 'https://cdn.simpleicons.org/paypal/003087' },
+  { n: 'Mercado Pago', s: 'Pagos', c: '#009EE3', bg: '#E5F6FD', img: 'https://cdn.simpleicons.org/mercadopago/009EE3' },
+  { n: 'Kueski Pay', s: 'Compra ahora, paga después', c: '#0058FF', bg: '#E9F0FF', img: 'https://www.google.com/s2/favicons?domain=kueskipay.com&sz=128' },
+  { n: 'SPEI', s: 'Transferencia', c: '#1B5E20', bg: '#E8F5E9', img: 'https://www.google.com/s2/favicons?domain=banxico.org.mx&sz=128' },
+  { n: 'OXXO Pay', s: 'Pago en efectivo', c: '#C8102E', bg: '#FDECEF', img: 'https://www.google.com/s2/favicons?domain=oxxo.com&sz=128' },
+  { n: 'VISA', s: 'Crédito y débito', c: '#1A1F71', bg: '#ECEDF8', img: 'https://cdn.simpleicons.org/visa/1A1F71' },
+  { n: 'Mastercard', s: 'Crédito y débito', c: '#EB001B', bg: '#FDECEE', img: 'https://cdn.simpleicons.org/mastercard/EB001B' }
+];
+
+/* Ilustraciones de producto (SVG sobre fondo blanco). Reemplázalas por tus fotos reales. */
+const views = ['Vista frontal', 'Vista lateral', 'Detalle', 'En uso', 'Empaque'];
+function pic(emoji, color, i) {
+  const rot = [0, -8, 10, -4, 6][i], sc = [1, .92, 1.25, .8, 1.05][i];
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'><rect width='600' height='600' fill='#fff'/><ellipse cx='300' cy='500' rx='${150*sc}' ry='18' fill='#000' opacity='.07'/><circle cx='300' cy='290' r='${170*sc}' fill='${color}' opacity='.14'/><text x='300' y='345' font-size='${190*sc}' text-anchor='middle' transform='rotate(${rot} 300 300)'>${emoji}</text><text x='300' y='565' font-size='22' fill='#6b7378' text-anchor='middle' font-family='Arial'>${views[i]}</text></svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+const mk = (e, c) => [0,1,2,3,4].map(i => pic(e, c, i));
+
+const cats = ['Todos', 'Equipo de campamento', 'Electrónico', 'Blanco y bolsas de dormir', 'Moda técnica', 'Accesorios y joyería', 'Niños'];
+const catIcons = { 'Todos': 'layout-grid', 'Equipo de campamento': 'tent', 'Electrónico': 'satellite', 'Blanco y bolsas de dormir': 'bed-double', 'Moda técnica': 'shirt', 'Accesorios y joyería': 'gem', 'Niños': 'baby' };
+
+const products = [
+  { id: 'p1', cat: 'Equipo de campamento', name: 'Casa de campaña 3 estaciones 2P', price: 4290, rent: 450, img: mk('⛺', '#3f7d4e'), short: 'Ligera (2.1 kg), impermeable y de armado rápido en 5 minutos.', long: 'Tienda de doble capa con postes de aluminio, vestíbulo amplio y costuras selladas. Soporta lluvia fuerte y vientos de hasta 60 km/h. Incluye bolsa de compresión, estacas y cuerdas reflectantes.', det: ['Capacidad: 2 personas', 'Peso: 2.1 kg', 'Columna de agua: 3,000 mm', 'Incluye footprint opcional'] },
+  { id: 'p2', cat: 'Equipo de campamento', name: 'Silla plegable ultraligera', price: 1190, rent: 90, img: mk('🪑', '#9c6d3c'), short: 'Silla de aluminio que pesa 900 g y se guarda en una funda compacta.', long: 'Estructura de aluminio aeronáutico y tela de secado rápido. Soporta hasta 120 kg. Perfecta para campamento base, miradores y días de descanso entre ascensos.', det: ['Peso: 900 g', 'Carga máx.: 120 kg', 'Plegado: 35 cm', 'Funda incluida'] },
+  { id: 'p3', cat: 'Equipo de campamento', name: 'Estufa de montaña con cartucho', price: 1590, rent: 120, img: mk('🔥', '#e07b00'), short: 'Hierve 1 litro de agua en 3 minutos, aun con viento moderado.', long: 'Estufa compacta con encendido piezoeléctrico y válvula de precisión. Compatible con cartuchos de rosca estándar. Incluye estuche rígido.', det: ['Potencia: 3,000 W', 'Peso: 85 g', 'Encendido piezoeléctrico', 'Cartucho no incluido'] },
+  { id: 'p4', cat: 'Electrónico', name: 'GPS de montaña con mapas offline', price: 6990, rent: 650, img: mk('🧭', '#0058a8'), short: 'Mapas topográficos sin señal, altímetro y batería de hasta 30 días.', long: 'Navegación multi-satélite con pantalla transflectiva legible bajo el sol, brújula de 3 ejes, altímetro barométrico y botón SOS. Carga mapas de rutas y comparte tu ubicación con tu contacto de emergencia.', det: ['Batería: hasta 30 días', 'Resistencia: IPX7', 'Altímetro barométrico', 'SOS de emergencia'] },
+  { id: 'p5', cat: 'Electrónico', name: 'Linterna frontal recargable 600 lm', price: 890, rent: 60, img: mk('🔦', '#ffb020'), short: 'Modo rojo, 600 lúmenes y resistencia al agua para caminatas nocturnas.', long: 'Linterna frontal con haz ajustable, modo de luz roja para preservar la visión nocturna y batería recargable por USB-C con autonomía de hasta 40 horas en modo bajo.', det: ['Brillo: 600 lm', 'Recarga USB-C', 'Peso: 88 g', 'Resistencia: IPX6'] },
+  { id: 'p6', cat: 'Electrónico', name: 'Reloj outdoor con altímetro', price: 5490, rent: 380, img: mk('⌚', '#245433'), short: 'GPS, altímetro, barómetro, pulso y alertas de tormenta.', long: 'Reloj deportivo con medición de altitud, brújula, seguimiento de ruta con breadcrumb y monitoreo de frecuencia cardiaca. Alertas de cambios bruscos de presión para anticipar tormentas.', det: ['Autonomía: 14 días', 'GPS multibanda', 'Resistente a 100 m', 'Sensor óptico de pulso'] },
+  { id: 'p7', cat: 'Blanco y bolsas de dormir', name: 'Bolsa de dormir -10 °C', price: 3490, rent: 280, img: mk('🛌', '#6b4a28'), short: 'Relleno sintético de alto rendimiento, cómoda hasta -5 °C.', long: 'Bolsa tipo momia con capucha ajustable, cierre antiatasco y relleno que conserva calor aun húmedo. Pesa 1.6 kg y se comprime a 18 litros.', det: ['Límite: -10 °C', 'Confort: -5 °C', 'Peso: 1.6 kg', 'Funda de compresión'] },
+  { id: 'p8', cat: 'Blanco y bolsas de dormir', name: 'Manta térmica de emergencia (pack 4)', price: 249, rent: 0, img: mk('🧣', '#b5bbbe'), short: 'Retiene el 90% del calor corporal. Ligera y obligatoria en expediciones.', long: 'Mantas reflectantes de poliéster metalizado, impermeables y cortavientos. Cada una ocupa el tamaño de una palma. Reutilizables en situaciones de bajo riesgo.', det: ['4 piezas', 'Medida: 210 x 130 cm', 'Peso: 55 g c/u', 'Impermeable'] },
+  { id: 'p9', cat: 'Blanco y bolsas de dormir', name: 'Colchoneta autoinflable', price: 1790, rent: 140, img: mk('🛏️', '#3f7d4e'), short: 'Aislamiento R 3.5 y 5 cm de grosor para dormir como en casa.', long: 'Colchoneta con espuma autoinflable y válvula de gran caudal. Aislamiento ideal para suelos fríos y rocosos. Incluye kit de reparación.', det: ['Grosor: 5 cm', 'Valor R: 3.5', 'Peso: 980 g', 'Kit de reparación'] },
+  { id: 'p10', cat: 'Moda técnica', name: 'Chamarra impermeable 3 capas', price: 3990, rent: 300, img: mk('🧥', '#12301b'), short: 'Membrana transpirable y costuras selladas, con capucha para casco.', long: 'Chamarra shell de tres capas con ventilaciones en axila, bolsillos accesibles con arnés y puños ajustables. Diseñada para lluvia y viento en alta montaña.', det: ['Columna de agua: 20,000 mm', 'Peso: 420 g', 'Capucha compatible con casco', 'Tallas XS–XXL'] },
+  { id: 'p11', cat: 'Moda técnica', name: 'Pantalón trekking desmontable', price: 1490, rent: 110, img: mk('👖', '#9c6d3c'), short: 'Convierte a short, con protección UV 50+ y secado rápido.', long: 'Pantalón elástico y resistente a la abrasión con cierres en las piernas, bolsillos con cierre y cintura ajustable. Perfecto para climas cambiantes.', det: ['Protección UV 50+', 'Secado rápido', 'Cierres desmontables', 'Tallas 28–40'] },
+  { id: 'p12', cat: 'Moda técnica', name: 'Botas de montaña impermeables', price: 3290, rent: 250, img: mk('🥾', '#6b4a28'), short: 'Caña media, suela Vibram y membrana impermeable para terreno exigente.', long: 'Botas de cuero y malla con refuerzo en puntera y talón, plantilla con soporte de arco y suela de agarre superior en roca y barro. Mide tu talla con asesoría gratuita.', det: ['Suela tipo Vibram', 'Membrana impermeable', 'Peso: 640 g c/u', 'Tallas 22–30 MX'] },
+  { id: 'p13', cat: 'Accesorios y joyería', name: 'Brújula de aluminio con espejo', price: 590, rent: 0, img: mk('🧭', '#b98a56'), short: 'Brújula de precisión con espejo de señales y escala de declinación.', long: 'Brújula de placa con aguja líquida, regla milimétrica y espejo para señales de emergencia. Cuerda para el cuello incluida.', det: ['Escala de declinación', 'Espejo de señales', 'Peso: 60 g', 'Estuche incluido'] },
+  { id: 'p14', cat: 'Accesorios y joyería', name: 'Collar "Cumbre" plata 925', price: 1290, rent: 0, img: mk('💎', '#9c6d3c'), short: 'Dije de montaña en plata 925, regalo ideal para quien ama el trekking.', long: 'Collar artesanal con dije de montañas en plata 925 y cadena de 45 cm. Entregado en estuche de madera con tarjeta de regalo.', det: ['Plata 925', 'Cadena 45 cm', 'Estuche incluido', 'Hecho a mano'] },
+  { id: 'p15', cat: 'Accesorios y joyería', name: 'Bastones de trekking carbono (par)', price: 1890, rent: 130, img: mk('🥢', '#3b4246'), short: 'Telescópicos, antichoque y de apenas 420 g por par.', long: 'Bastones con empuñadura de corcho, correa acolchada y puntas de carburo de tungsteno. Se pliegan a 38 cm para viajar cómodamente.', det: ['Carbono', 'Peso: 420 g (par)', 'Ajuste: 100–135 cm', 'Puntas intercambiables'] },
+  { id: 'p16', cat: 'Niños', name: 'Mochila infantil 12 L con hidratación', price: 890, rent: 70, img: mk('🎒', '#e07b00'), short: 'Ergonómica, con silbato de emergencia y compartimento para agua.', long: 'Mochila pensada para espaldas pequeñas con tirantes acolchados, correa de pecho y cubierta de lluvia integrada. Reflejantes para mayor visibilidad.', det: ['Capacidad: 12 L', 'Edad: 6 a 11 años', 'Cubierta de lluvia', 'Silbato incluido'] },
+  { id: 'p17', cat: 'Niños', name: 'Botas infantiles de senderismo', price: 990, rent: 80, img: mk('👟', '#3f7d4e'), short: 'Suela antiderrapante y protección en puntera. Tallas 17 a 24 MX.', long: 'Botas ligeras con cierre rápido, plantilla amortiguada y tela transpirable resistente a salpicaduras. Ideales para rutas familiares.', det: ['Tallas 17–24 MX', 'Cierre rápido', 'Suela antiderrapante', 'Peso: 310 g c/u'] },
+  { id: 'p18', cat: 'Niños', name: 'Kit explorador junior', price: 450, rent: 0, img: mk('🔭', '#0058a8'), short: 'Binoculares, lupa, brújula y guía de aves para pequeños aventureros.', long: 'Kit educativo con binoculares 6x21, lupa de bolsillo, brújula, libreta de campo y guía de fauna. Fomenta el amor por la naturaleza.', det: ['Binoculares 6x21', 'Guía ilustrada', 'Estuche de tela', 'Edad: 5+'] }
+];
+
+/* ================= UTILIDADES ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const refreshIcons = () => window.lucide && lucide.createIcons();
+const levelColor = { 'Fácil': 'bg-forest-100 text-forest-800', 'Moderada': 'bg-sun-400/30 text-earth-700', 'Difícil': 'bg-orange-100 text-orange-800', 'Experto': 'bg-red-100 text-red-800' };
+
+/* ================= MENÚ MÓVIL ================= */
+$('#menuBtn').addEventListener('click', e => {
+  const m = $('#mobileMenu'); m.classList.toggle('hidden');
+  e.currentTarget.setAttribute('aria-expanded', !m.classList.contains('hidden'));
+});
+$$('#mobileMenu a').forEach(a => a.addEventListener('click', () => $('#mobileMenu').classList.add('hidden')));
+
+/* ================= SLIDER HÉROE ================= */
+(function () {
+  const wrap = $('#heroSlides'), dots = $('#heroDots');
+  let cur = 0, timer;
+  slides.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = `slide absolute inset-0 bg-gradient-to-br ${s.grad} ${i === 0 ? 'active' : ''}`;
+    el.setAttribute('role', 'group'); el.setAttribute('aria-label', `${i + 1} de ${slides.length}`);
+    el.innerHTML = `
+      <img src="${s.img}" alt="" class="absolute inset-0 w-full h-full object-cover opacity-55" loading="${i ? 'lazy' : 'eager'}" onerror="this.remove()">
+      <div class="absolute inset-0 bg-gradient-to-r from-rock-900/85 via-rock-900/45 to-transparent"></div>
+      <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-16 lg:px-20 flex items-center pb-20 md:pb-24">
+        <div class="max-w-2xl text-white">
+          <span class="inline-flex items-center gap-2 bg-sun-500 text-rock-900 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"><i data-lucide="${s.icon}" class="w-4 h-4"></i>${s.tag}</span>
+          <h1 class="font-display font-extrabold uppercase leading-[.95] text-5xl sm:text-6xl lg:text-7xl mt-5">${s.title}</h1>
+          <p class="mt-5 text-base sm:text-lg text-white/85 max-w-xl">${s.text}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button data-slide-cta="${i}" class="inline-flex items-center gap-2 bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold px-7 py-3.5 rounded-full shadow-lg transition">${s.cta}<i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            <a href="#rutas" class="inline-flex items-center gap-2 border border-white/60 hover:bg-white/10 text-white font-semibold px-7 py-3.5 rounded-full transition">Ver todas las rutas</a>
+          </div>
+        </div>
+      </div>`;
+    wrap.appendChild(el);
+    const d = document.createElement('button');
+    d.className = 'h-2.5 rounded-full transition-all bg-white/50'; d.setAttribute('aria-label', `Ir a la diapositiva ${i + 1}`);
+    d.addEventListener('click', () => { go(i); restart(); });
+    dots.appendChild(d);
+  });
+  function go(n) {
+    cur = (n + slides.length) % slides.length;
+    $$('.slide', wrap).forEach((s, i) => s.classList.toggle('active', i === cur));
+    $$('button', dots).forEach((d, i) => { d.className = `h-2.5 rounded-full transition-all ${i === cur ? 'w-8 bg-sun-400' : 'w-2.5 bg-white/50'}`; });
+  }
+  const restart = () => { clearInterval(timer); timer = setInterval(() => go(cur + 1), 6500); };
+  $('#heroPrev').addEventListener('click', () => { go(cur - 1); restart(); });
+  $('#heroNext').addEventListener('click', () => { go(cur + 1); restart(); });
+  const hero = wrap.parentElement;
+  hero.addEventListener('mouseenter', () => clearInterval(timer));
+  hero.addEventListener('mouseleave', restart);
+  let x0 = null;
+  hero.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+  hero.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) { go(cur + (dx < 0 ? 1 : -1)); restart(); } x0 = null; });
+  wrap.addEventListener('click', e => {
+    const b = e.target.closest('[data-slide-cta]'); if (!b) return;
+    const s = slides[+b.dataset.slideCta];
+    if (s.action === 'reserve') return openReserve();
+    if (s.filter) setRouteFilter(s.filter);
+    if (s.cat) setCat(s.cat);
+    document.querySelector(s.href).scrollIntoView({ behavior: 'smooth' });
+  });
+  go(0); restart();
+})();
+
+/* ================= RUTAS ================= */
+let routeFilter = 'Todas';
+function setRouteFilter(f) { routeFilter = f; renderRoutes(); }
+function renderRoutes() {
+  const fs = ['Todas', 'Un día', 'Familiar', 'Expedición'];
+  $('#routeFilters').innerHTML = fs.map(f => `<button data-rf="${f}" class="px-4 py-2 rounded-full text-sm font-semibold border transition ${f === routeFilter ? 'bg-forest-700 text-white border-forest-700' : 'bg-white text-rock-700 border-rock-300 hover:border-forest-500'}">${f}</button>`).join('');
+  const list = routes.filter(r => routeFilter === 'Todas' || r.cat === routeFilter);
+  $('#routesGrid').innerHTML = list.map(r => `
+    <article class="group bg-white rounded-2xl overflow-hidden border border-earth-200 shadow-sm hover:shadow-xl transition flex flex-col">
+      <div class="relative h-52 bg-gradient-to-br from-forest-600 to-forest-900 overflow-hidden">
+        <img src="${r.img}" alt="${r.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.remove()">
+        <span class="absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full ${levelColor[r.level]}">${r.level}</span>
+        <span class="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full bg-rock-900/70 text-white">${r.cat}</span>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <h3 class="font-display text-2xl font-bold uppercase text-forest-900 leading-tight">${r.name}</h3>
+        <p class="text-sm text-rock-500 mt-2 line-clamp-2">${r.short}</p>
+        <div class="grid grid-cols-3 gap-2 mt-4 text-xs text-rock-700">
+          <div class="bg-earth-50 rounded-lg p-2 text-center"><i data-lucide="mountain" class="w-4 h-4 mx-auto text-forest-600"></i><b class="block mt-1">${r.alt}</b></div>
+          <div class="bg-earth-50 rounded-lg p-2 text-center"><i data-lucide="timer" class="w-4 h-4 mx-auto text-forest-600"></i><b class="block mt-1">${r.dur}</b></div>
+          <div class="bg-earth-50 rounded-lg p-2 text-center"><i data-lucide="route" class="w-4 h-4 mx-auto text-forest-600"></i><b class="block mt-1">${r.km}</b></div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-rock-100 flex items-center justify-between gap-3 mt-auto">
+          <div><p class="text-[11px] uppercase text-rock-500 tracking-wider">Desde</p><p class="font-display text-3xl font-extrabold text-forest-800 leading-none">${money(r.price)}</p></div>
+          <div class="flex gap-2">
+            <button data-route="${r.id}" class="px-4 py-2.5 text-sm font-semibold rounded-full border border-forest-600 text-forest-700 hover:bg-forest-50">Detalles</button>
+            <button data-reserve-route="${r.id}" class="px-4 py-2.5 text-sm font-bold rounded-full bg-sun-500 hover:bg-sun-600 text-rock-900">Reservar</button>
+          </div>
+        </div>
+      </div>
+    </article>`).join('');
+  refreshIcons();
+}
+$('#routeFilters').addEventListener('click', e => { const b = e.target.closest('[data-rf]'); if (b) setRouteFilter(b.dataset.rf); });
+$('#routesGrid').addEventListener('click', e => {
+  const d = e.target.closest('[data-route]'); if (d) return openRoute(d.dataset.route);
+  const r = e.target.closest('[data-reserve-route]'); if (r) openReserve(r.dataset.reserveRoute);
+});
+
+/* ================= CATÁLOGO ================= */
+let currentCat = 'Todos';
+function setCat(c) { currentCat = c; renderCats(); renderProducts(); }
+function renderCats() {
+  $('#catTabs').innerHTML = cats.map(c => `<button data-cat="${c}" class="shrink-0 flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold border transition ${c === currentCat ? 'bg-forest-700 text-white border-forest-700 shadow' : 'bg-white text-rock-700 border-rock-300 hover:border-forest-500'}"><i data-lucide="${catIcons[c]}" class="w-4 h-4"></i>${c}</button>`).join('');
+  refreshIcons();
+}
+function renderProducts() {
+  const list = products.filter(p => currentCat === 'Todos' || p.cat === currentCat);
+  $('#productGrid').innerHTML = list.map(p => `
+    <article class="bg-white rounded-2xl border border-rock-100 shadow-sm hover:shadow-xl transition overflow-hidden flex flex-col" data-pid="${p.id}">
+      <div class="relative bg-white aspect-square">
+        <img src="${p.img[0]}" alt="${p.name}" data-main class="w-full h-full object-contain" loading="lazy">
+        <button class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow grid place-items-center hover:bg-rock-100" data-step="-1" aria-label="Imagen anterior"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+        <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow grid place-items-center hover:bg-rock-100" data-step="1" aria-label="Imagen siguiente"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+        <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1.5">${p.img.map((_, i) => `<span data-dot="${i}" class="h-1.5 rounded-full ${i === 0 ? 'w-5 bg-forest-600' : 'w-1.5 bg-rock-300'} transition-all"></span>`).join('')}</div>
+        <span class="absolute top-3 left-3 text-[11px] font-bold uppercase tracking-wide bg-earth-100 text-earth-700 px-2.5 py-1 rounded-full">${p.cat}</span>
+      </div>
+      <div class="p-4 flex flex-col flex-1">
+        <h3 class="font-bold text-forest-900 leading-snug">${p.name}</h3>
+        <p class="text-sm text-rock-500 mt-1 line-clamp-2">${p.short}</p>
+        <div class="mt-3 flex items-end justify-between">
+          <p class="font-display text-3xl font-extrabold text-forest-800 leading-none">${money(p.price)}</p>
+          ${p.rent ? `<p class="text-xs text-rock-500">Renta ${money(p.rent)}/día</p>` : ''}
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-2 mt-auto pt-4">
+          <button data-product="${p.id}" class="py-2.5 rounded-full border border-forest-600 text-forest-700 font-semibold text-sm hover:bg-forest-50">Ver detalle</button>
+          <button data-buy="${p.id}" class="py-2.5 rounded-full bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold text-sm">Comprar</button>
+        </div>
+      </div>
+    </article>`).join('');
+  refreshIcons();
+}
+$('#catTabs').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (b) setCat(b.dataset.cat); });
+const cardIdx = {};
+$('#productGrid').addEventListener('click', e => {
+  const card = e.target.closest('[data-pid]'); if (!card) return;
+  const p = products.find(x => x.id === card.dataset.pid);
+  const st = e.target.closest('[data-step]');
+  if (st) {
+    const n = ((cardIdx[p.id] || 0) + +st.dataset.step + p.img.length) % p.img.length; cardIdx[p.id] = n;
+    $('[data-main]', card).src = p.img[n];
+    $$('[data-dot]', card).forEach((d, i) => d.className = `h-1.5 rounded-full transition-all ${i === n ? 'w-5 bg-forest-600' : 'w-1.5 bg-rock-300'}`);
+    return;
+  }
+  if (e.target.closest('[data-product]')) return openProduct(p.id);
+  if (e.target.closest('[data-buy]')) return openProduct(p.id, true);
+  if (e.target.matches('[data-main]')) openProduct(p.id);
+});
+
+/* ================= MODALES ================= */
+const modal = $('#modal'), body = $('#modalBody');
+function openModal(html, wide = true) {
+  body.innerHTML = html;
+  $('#modalBox').className = `relative bg-white rounded-3xl w-full ${wide ? 'max-w-4xl' : 'max-w-xl'} shadow-2xl overflow-hidden`;
+  modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; refreshIcons();
+  $('#modalClose').focus();
+}
+function closeModal() { modal.classList.add('hidden'); document.body.style.overflow = ''; }
+$('#modalClose').addEventListener('click', closeModal);
+$('#modalBackdrop').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function openProduct(id, focusBuy) {
+  const p = products.find(x => x.id === id); let n = 0;
+  openModal(`
+    <div class="grid md:grid-cols-2">
+      <div class="bg-white p-4 md:p-6">
+        <div class="aspect-square bg-white rounded-2xl border border-rock-100 overflow-hidden"><img id="pmMain" src="${p.img[0]}" alt="${p.name}" class="w-full h-full object-contain"></div>
+        <div class="grid grid-cols-5 gap-2 mt-3">${p.img.map((s, i) => `<button data-th="${i}" class="aspect-square rounded-xl border-2 overflow-hidden bg-white ${i === 0 ? 'border-forest-600' : 'border-rock-100'}"><img src="${s}" alt="Miniatura ${i + 1}" class="w-full h-full object-contain"></button>`).join('')}</div>
+      </div>
+      <div class="p-6 md:p-8 bg-earth-50 flex flex-col">
+        <span class="text-xs font-bold uppercase tracking-widest text-sun-600">${p.cat}</span>
+        <h3 class="font-display text-4xl font-extrabold uppercase text-forest-900 leading-none mt-1">${p.name}</h3>
+        <p class="font-display text-4xl font-extrabold text-forest-700 mt-4">${money(p.price)}</p>
+        ${p.rent ? `<p class="text-sm text-rock-500">o renta por ${money(p.rent)} al día</p>` : ''}
+        <p class="text-rock-700 mt-4">${p.long}</p>
+        <ul class="mt-4 grid grid-cols-2 gap-2 text-sm">${p.det.map(d => `<li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-forest-600 mt-0.5 shrink-0"></i>${d}</li>`).join('')}</ul>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 mt-auto pt-6">
+          <a id="buyBtn" target="_blank" rel="noopener" href="${waLink(`Hola, quiero comprar: ${p.name} (${money(p.price)}).`)}" class="flex-1 text-center bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold py-3 rounded-full">Comprar por WhatsApp</a>
+          ${p.rent ? `<a target="_blank" rel="noopener" href="${waLink(`Hola, quiero rentar: ${p.name} (${money(p.rent)}/día).`)}" class="flex-1 text-center border border-forest-600 text-forest-700 font-semibold py-3 rounded-full hover:bg-forest-50">Rentar</a>` : ''}
+        </div>
+        <p class="text-xs text-rock-500 mt-3 flex items-center gap-2"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Pago seguro con tarjeta, SPEI, OXXO, PayPal, Mercado Pago y Kueski.</p>
+      </div>
+    </div>`);
+  $$('[data-th]', body).forEach(b => b.addEventListener('click', () => {
+    n = +b.dataset.th; $('#pmMain').src = p.img[n];
+    $$('[data-th]', body).forEach((x, i) => x.className = `aspect-square rounded-xl border-2 overflow-hidden bg-white ${i === n ? 'border-forest-600' : 'border-rock-100'}`);
+  }));
+  if (focusBuy) $('#buyBtn').focus();
+}
+
+function openRoute(id) {
+  const r = routes.find(x => x.id === id);
+  openModal(`
+    <div class="grid md:grid-cols-5">
+      <div class="md:col-span-2 relative min-h-[220px] bg-gradient-to-br from-forest-600 to-forest-900">
+        <img src="${r.img}" alt="${r.name}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">
+        <span class="absolute bottom-4 left-4 text-xs font-bold px-3 py-1 rounded-full ${levelColor[r.level]}">${r.level}</span>
+      </div>
+      <div class="md:col-span-3 p-6 md:p-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-sun-600">${r.cat}</span>
+        <h3 class="font-display text-4xl font-extrabold uppercase text-forest-900 leading-none mt-1">${r.name}</h3>
+        <div class="flex flex-wrap gap-4 text-sm text-rock-700 mt-4">
+          <span class="flex items-center gap-1.5"><i data-lucide="mountain" class="w-4 h-4 text-forest-600"></i>${r.alt}</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="timer" class="w-4 h-4 text-forest-600"></i>${r.dur}</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="route" class="w-4 h-4 text-forest-600"></i>${r.km}</span>
+        </div>
+        <p class="text-rock-700 mt-4">${r.long}</p>
+        <h4 class="font-bold text-forest-900 mt-5 mb-2">Qué incluye</h4>
+        <ul class="space-y-1.5 text-sm">${r.inc.map(i => `<li class="flex gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-forest-600 mt-0.5 shrink-0"></i>${i}</li>`).join('')}</ul>
+        <div class="mt-6 flex items-center justify-between gap-3 flex-wrap">
+          <p class="font-display text-4xl font-extrabold text-forest-800">${money(r.price)}<span class="text-sm font-sans font-medium text-rock-500"> / persona</span></p>
+          <button id="rmReserve" class="bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold px-7 py-3 rounded-full">Reservar esta ruta</button>
+        </div>
+      </div>
+    </div>`);
+  $('#rmReserve').addEventListener('click', () => openReserve(r.id));
+}
+
+function openReserve(routeId) {
+  const opts = routes.map(r => `<option value="${r.id}" ${r.id === routeId ? 'selected' : ''}>${r.name} — ${money(r.price)}</option>`).join('');
+  const today = new Date().toISOString().slice(0, 10);
+  openModal(`
+    <div class="p-6 sm:p-8">
+      <p class="text-sun-600 font-bold uppercase tracking-[.2em] text-xs">Reserva tu lugar</p>
+      <h3 class="font-display text-4xl font-extrabold uppercase text-forest-900 mt-1">Reserva tu expedición</h3>
+      <p class="text-sm text-rock-500 mt-1">Aparta con 30% de anticipo. Te confirmaremos disponibilidad por WhatsApp.</p>
+      <form id="reserveForm" class="mt-5 space-y-4">
+        <label class="block text-sm font-semibold text-rock-700">Ruta o expedición
+          <select name="ruta" class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal">${opts}</select></label>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block text-sm font-semibold text-rock-700">Fecha deseada
+            <input type="date" name="fecha" min="${today}" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+          <label class="block text-sm font-semibold text-rock-700">Personas
+            <input type="number" name="personas" min="1" max="20" value="2" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block text-sm font-semibold text-rock-700">Nombre
+            <input name="nombre" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+          <label class="block text-sm font-semibold text-rock-700">Teléfono
+            <input type="tel" name="tel" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-rock-700"><input type="checkbox" name="seguro" checked class="w-4 h-4 accent-green-700"> Quiero ampliar mi seguro de vida y rescate</label>
+        <label class="flex items-center gap-2 text-sm text-rock-700"><input type="checkbox" name="equipo" class="w-4 h-4 accent-green-700"> Necesito renta de equipo</label>
+        <div class="bg-earth-50 border border-earth-200 rounded-xl p-4 flex justify-between items-center">
+          <span class="text-sm text-rock-700">Total estimado</span><b id="rTotal" class="font-display text-3xl text-forest-800"></b>
+        </div>
+        <button class="w-full bg-sun-500 hover:bg-sun-600 text-rock-900 font-bold py-3.5 rounded-xl">Enviar solicitud por WhatsApp</button>
+      </form>
+    </div>`, false);
+  const f = $('#reserveForm');
+  const calc = () => { const r = routes.find(x => x.id === f.ruta.value); $('#rTotal').textContent = money(r.price * (+f.personas.value || 1)); };
+  f.addEventListener('input', calc); calc();
+  f.addEventListener('submit', e => {
+    e.preventDefault();
+    const r = routes.find(x => x.id === f.ruta.value);
+    const msg = `Hola, quiero reservar la ruta "${r.name}".\nFecha: ${f.fecha.value}\nPersonas: ${f.personas.value}\nNombre: ${f.nombre.value}\nTeléfono: ${f.tel.value}\nAmpliar seguro: ${f.seguro.checked ? 'Sí' : 'No'}\nRenta de equipo: ${f.equipo.checked ? 'Sí' : 'No'}\nTotal estimado: ${$('#rTotal').textContent}`;
+    window.open(waLink(msg), '_blank', 'noopener');
+    closeModal();
+  });
+}
+$$('[data-reserve]').forEach(b => b.addEventListener('click', () => { $('#mobileMenu').classList.add('hidden'); openReserve(); }));
+
+/* Documentos legales y facturación */
+const legal = {
+  privacidad: ['Aviso de privacidad', `<p>Kletter Peak, con domicilio en Av. de la Montaña 120, Col. Roma Norte, CDMX, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</p>
+    <p><b>Datos que recabamos:</b> nombre, teléfono, correo, datos de contacto de emergencia y, para expediciones, información básica de salud necesaria para tu seguridad.</p>
+    <p><b>Finalidades:</b> gestionar reservas y compras, contratar seguros, coordinar rescates, emitir facturas y enviarte información de tu viaje. Opcionalmente, enviarte promociones.</p>
+    <p><b>Derechos ARCO:</b> puedes acceder, rectificar, cancelar u oponerte al uso de tus datos escribiendo a privacidad@cumbretrek.mx.</p>
+    <p class="text-xs text-rock-500">Texto de ejemplo: revísalo con tu asesor legal antes de publicar.</p>`],
+  terminos: ['Términos y condiciones', `<p><b>1. Reservas.</b> Tu lugar queda apartado al recibir el anticipo del 30%. El saldo debe liquidarse 7 días antes de la salida.</p>
+    <p><b>2. Cancelaciones.</b> Reprogramación sin costo hasta 7 días antes. Con más de 15 días de anticipación se reembolsa el 90%. Cancelaciones tardías pueden no ser reembolsables.</p>
+    <p><b>3. Riesgos.</b> El senderismo y el montañismo implican riesgos inherentes. Todo participante firma una carta responsiva y declara estar en condiciones físicas adecuadas.</p>
+    <p><b>4. Decisiones del guía.</b> El guía puede modificar o suspender la actividad por seguridad. Sus decisiones son vinculantes durante la expedición.</p>
+    <p><b>5. Renta de equipo.</b> El arrendatario es responsable del equipo y de su devolución en la fecha pactada. Se solicita depósito reembolsable.</p>
+    <p class="text-xs text-rock-500">Texto de ejemplo: adáptalo a tus políticas reales y revísalo con un abogado.</p>`],
+  factura: ['Portal de facturación electrónica', `<form id="invForm" class="space-y-4">
+      <p>Genera tu CFDI 4.0 con tu folio de compra. Tienes hasta el último día del mes de tu compra.</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block text-sm font-semibold">Folio de compra<input required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal" placeholder="CT-000123"></label>
+        <label class="block text-sm font-semibold">RFC<input required maxlength="13" class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal uppercase" placeholder="XAXX010101000"></label>
+      </div>
+      <label class="block text-sm font-semibold">Razón social<input required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block text-sm font-semibold">Código postal fiscal<input required maxlength="5" class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+        <label class="block text-sm font-semibold">Uso de CFDI<select class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"><option>G03 – Gastos en general</option><option>S01 – Sin efectos fiscales</option></select></label>
+      </div>
+      <label class="block text-sm font-semibold">Correo para recibir tu factura<input type="email" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
+      <button class="w-full bg-forest-700 hover:bg-forest-800 text-white font-bold py-3 rounded-xl">Solicitar factura</button>
+      <p id="invMsg" class="hidden text-sm font-semibold text-forest-700"></p>
+      <p class="text-xs text-rock-500">Demostración: conecta este formulario con tu proveedor de facturación (Facturama, SW Sapien, etc.).</p></form>`]
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-legal]'); if (!b) return;
+  const [t, c] = legal[b.dataset.legal];
+  openModal(`<div class="p-6 sm:p-8 space-y-3 text-rock-700 text-sm leading-relaxed max-h-[80vh] overflow-y-auto"><h3 class="font-display text-4xl font-extrabold uppercase text-forest-900">${t}</h3>${c}</div>`, false);
+  const inv = $('#invForm');
+  if (inv) inv.addEventListener('submit', ev => { ev.preventDefault(); const m = $('#invMsg'); m.textContent = 'Solicitud recibida. Te enviaremos tu factura al correo indicado.'; m.classList.remove('hidden'); });
+});
+
+/* ================= PAGOS ================= */
+(function () {
+  const card = p => `<div class="mx-3 w-60 shrink-0 bg-white rounded-2xl px-5 py-5 text-left shadow-lg flex items-center gap-4">
+    <span class="w-12 h-12 rounded-xl grid place-items-center shrink-0" style="background:${p.bg}"><img src="${p.img}" alt="Logo de ${p.n}" class="w-9 h-9 object-contain" loading="lazy"></span>
+    <span><b class="block font-display text-2xl font-extrabold uppercase leading-none" style="color:${p.c}">${p.n}</b><span class="text-xs text-rock-500">${p.s}</span></span></div>`;
+  const html = payments.map(card).join('');
+  $('#payMarquee').innerHTML = html + html;
+})();
+
+/* ================= FAQ ================= */
+(function () {
+  const list = $('#faqList');
+  list.innerHTML = faqs.map(([q, a], i) => `
+    <div class="bg-white border border-earth-200 rounded-2xl overflow-hidden">
+      <h3><button class="w-full flex justify-between items-center gap-4 text-left px-5 py-4 font-semibold text-forest-900" aria-expanded="false" aria-controls="faq${i}" id="faqb${i}">
+        <span>${q}</span><i data-lucide="plus" class="w-5 h-5 text-sun-600 shrink-0 transition-transform"></i></button></h3>
+      <div id="faq${i}" role="region" aria-labelledby="faqb${i}" class="faq-panel"><p class="px-5 pb-5 text-rock-500">${a}</p></div>
+    </div>`).join('');
+  list.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const open = b.getAttribute('aria-expanded') === 'true';
+    $$('button', list).forEach(x => { x.setAttribute('aria-expanded', 'false'); $('i, svg', x).style.transform = ''; document.getElementById(x.getAttribute('aria-controls')).style.maxHeight = 0; });
+    if (!open) {
+      b.setAttribute('aria-expanded', 'true');
+      const p = document.getElementById(b.getAttribute('aria-controls')); p.style.maxHeight = p.scrollHeight + 'px';
+      $('i, svg', b).style.transform = 'rotate(45deg)';
+    }
+  });
+})();
+
+/* ================= CONTACTO ================= */
+$('#contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target, m = $('#formMsg');
+  if (!f.nombre.value.trim() || !f.telefono.value.trim() || !/^\S+@\S+\.\S+$/.test(f.email.value)) {
+    m.textContent = 'Revisa que tu nombre, teléfono y correo estén completos y correctos.'; m.className = 'text-sm text-red-600 font-semibold'; return;
+  }
+  const msg = `Hola, soy ${f.nombre.value}. Me interesa: ${f.interes.value}.\nTeléfono: ${f.telefono.value}\nCorreo: ${f.email.value}\nMensaje: ${f.mensaje.value}`;
+  window.open(waLink(msg), '_blank', 'noopener');
+  m.textContent = '¡Gracias! Abrimos WhatsApp para continuar la conversación.'; m.className = 'text-sm text-forest-700 font-semibold'; f.reset();
+});
+
+/* ================= INICIO ================= */
+$('#year').textContent = new Date().getFullYear();
+renderRoutes(); renderCats(); renderProducts(); refreshIcons();
+</script>
+</body>
+</html>
