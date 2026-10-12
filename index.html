@@ -305,12 +305,12 @@ tailwind.config = {
       <p class="font-display text-3xl font-extrabold uppercase text-white">Kletter Peak</p>
       <p class="text-sm mt-3">Expediciones de senderismo y trekking, y equipo de montaña probado en campo. Caminamos contigo, de la primera ruta a la gran cumbre.</p>
       <div class="flex gap-3 mt-5">
-        <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sun-500 hover:text-rock-900 grid place-items-center transition">
+        <span aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center"><img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram" class="w-5 h-5"></span>
+        <span aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center"><img src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook" class="w-5 h-5"></span>
+        <span aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="WhatsApp" class="w-5 h-5"></span>
+        <span aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center">
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5Z"/></svg>
-        </a>
+        </span>
       </div>
     </div>
     <div>
@@ -719,7 +719,7 @@ const legal = {
     <p><b>Datos que recabamos:</b> nombre, teléfono, correo, datos de contacto de emergencia y, para expediciones, información básica de salud necesaria para tu seguridad.</p>
     <p><b>Finalidades:</b> gestionar reservas y compras, contratar seguros, coordinar rescates, emitir facturas y enviarte información de tu viaje. Opcionalmente, enviarte promociones.</p>
     <p><b>Derechos ARCO:</b> puedes acceder, rectificar, cancelar u oponerte al uso de tus datos escribiendo a privacidad@kletterpeak.mx.</p>
-    <p class="text-xs text-rock-500"></p>`],
+    <p class="text-xs text-rock-500">.</p>`],
   terminos: ['Términos y condiciones', `<p><b>1. Reservas.</b> Tu lugar queda apartado al recibir el anticipo del 30%. El saldo debe liquidarse 7 días antes de la salida.</p>
     <p><b>2. Cancelaciones.</b> Reprogramación sin costo hasta 7 días antes. Con más de 15 días de anticipación se reembolsa el 90%. Cancelaciones tardías pueden no ser reembolsables.</p>
     <p><b>3. Riesgos.</b> El senderismo y el montañismo implican riesgos inherentes. Todo participante firma una carta responsiva y declara estar en condiciones físicas adecuadas.</p>
@@ -740,7 +740,7 @@ const legal = {
       <label class="block text-sm font-semibold">Correo para recibir tu factura<input type="email" required class="mt-1 w-full rounded-xl border border-rock-300 px-4 py-3 font-normal"></label>
       <button class="w-full bg-forest-700 hover:bg-forest-800 text-white font-bold py-3 rounded-xl">Solicitar factura</button>
       <p id="invMsg" class="hidden text-sm font-semibold text-forest-700"></p>
-      <p class="text-xs text-rock-500"></p></form>`]
+      <p class="text-xs text-rock-500">Demostración: conecta este formulario con tu proveedor de facturación (Facturama, SW Sapien, etc.).</p></form>`]
 };
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-legal]'); if (!b) return;
